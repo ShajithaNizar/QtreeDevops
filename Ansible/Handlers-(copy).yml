@@ -1,0 +1,26 @@
+---
+- name: Install apache
+  hosts: all
+  become: yes
+  tasks:
+    - name:  copy source file to server
+      copy:
+        src: /root/ansible/index.html
+        dest: /var/www/html
+        owner: root
+        group: root
+        mode: 0644
+      notify: 
+        - restart apache in ubuntu
+        - restart apache in amazon
+  handlers: 
+    - name: restart apache in ubuntu
+      when: ansible_os_family == "Debian"
+      service:
+        name: apache2
+        state: restarted
+    - name: restart apache in amazon
+      when: ansible_distribution == "Amazon"
+      service:
+        name: httpd
+        state: restarted

@@ -1,0 +1,35 @@
+---
+- name: install softwares
+  hosts: all
+  vars: 
+   ubuntu_packages_list:
+     - nginx
+     - default-jdk
+     - python3.10
+     - apache2
+     - mysql-server
+   amazon_packages_list:
+     - nginx
+     - python3
+     - httpd
+     - mariadb-server
+  tasks: 
+   - name: install software in ubuntu
+     when: ansible_os_family == "Debian"
+     apt: 
+       name: "{{ item }}"
+       state: present
+       update_cache: yes
+     loop: "{{ ubuntu_packages_list }}" 
+  tasks: 
+   - name: install software in amazon
+     when: ansible_distribution == "Amazon"
+     yum: 
+       name: "{{ item }}"
+       state: present
+       update_cache: yes
+     loop: "{{ amazon_packages_list }}"
+
+ 
+
+    
