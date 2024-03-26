@@ -1,0 +1,9 @@
+---
+- name: Create ansible_user with password ansible123
+  hosts: all hosts
+  become: yes
+  tasks:
+    - name: Create ansible_user
+      ansible.builtin.user:
+        name: ansible_user
+        password: "{{ 'ansible123' | password_hash('sha512') }}"

@@ -1,0 +1,8 @@
+---
+- name: create welcome.txt file on remote server
+  hosts: all
+  tasks: 
+    - name: create welcome.txt file
+      ansible.builtin.copy:
+        content: "Hello, Ansible!"
+        dest: /root/welcome.txt

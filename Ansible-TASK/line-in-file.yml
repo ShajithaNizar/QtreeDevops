@@ -1,0 +1,9 @@
+---
+- name: Add line to configuration file
+  hosts: all
+  become: yes
+  tasks:
+    - name: Add a new line to configuration file
+      ansible.builtin.lineinfile:
+        path: /root/welcome.txt
+        line: 'this is new line'
